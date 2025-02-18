@@ -40,3 +40,14 @@ body {
     padding: 0 10px;
   }
   
+  #milestones {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 20px;
+  }
+  
+  #milestones li {
+    margin: 5px 0;
+    font-size: 1rem;
+  }
+  
