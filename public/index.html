@@ -2,20 +2,34 @@
 <html>
 <head>
   <meta charset="UTF-8">
+  <!-- Wichtig für Mobile: Setzt die Breite des Viewports -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Blockwoche</title>
   <style>
+    /* Basis-Styling */
     body {
       font-family: Arial, sans-serif;
       text-align: center;
-      margin-top: 50px;
+      margin: 0;
+      padding: 0;
       background: #f2f2f2;
+      line-height: 1.6;
+    }
+    header {
+      padding: 20px;
+    }
+    /* Container für den Content */
+    .container {
+      width: 90%;
+      max-width: 600px;
+      margin: 20px auto;
     }
     .progress-container {
-      width: 80%;
-      margin: 20px auto;
+      width: 100%;
       background: #ddd;
       border-radius: 25px;
       overflow: hidden;
+      margin: 20px 0;
     }
     .progress-bar {
       height: 30px;
@@ -26,21 +40,29 @@
       text-align: center;
       transition: width 0.5s ease-in-out;
     }
+    p {
+      margin: 10px 0;
+      padding: 0 10px;
+    }
   </style>
 </head>
 <body>
-  <h1>Blockwoche</h1>
-  <p>Bleib stark und übersteh die Blockwoche!</p>
+  <header>
+    <h1>Blockwoche</h1>
+    <p>Bleib stark und übersteh die Blockwoche!</p>
+  </header>
   
-  <div class="progress-container">
-    <div class="progress-bar" id="progress-bar">0%</div>
+  <div class="container">
+    <div class="progress-container">
+      <div class="progress-bar" id="progress-bar">0%</div>
+    </div>
+    
+    <p id="date-info"></p>
   </div>
-  
-  <p id="date-info"></p>
   
   <script>
     // Setze hier dein Start- und Enddatum ein
-    const startDate = new Date('2025-02-17T08:15:00'); // Beispiel: Startdatum
+    const startDate = new Date('2025-02-17T08:00:00'); // Beispiel: Startdatum
     const endDate = new Date('2025-02-22T18:00:00');   // Beispiel: Enddatum
     
     function updateProgress() {
