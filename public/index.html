@@ -18,10 +18,32 @@
       <div class="progress-bar" id="progress-bar">0%</div>
     </div>
     <p id="date-info"></p>
+
+    <!-- Neuer Bereich für heutige Lehrveranstaltungen -->
+    <div class="container today-events">
+        <h2>Heutige Lehrveranstaltungen FÜR GRUPPE A HEHEHEHE</h2>  
+        <div id="events-container"></div>
+    </div>
+
     <!-- Hier wird die dynamische Checkliste eingefügt -->
     <ul id="milestones"></ul>
   </div>
-  
+
+  <!-- Handlebars Template für die Events -->
+  <script id="events-template" type="text/x-handlebars-template">
+    {{#each events}}
+      <div class="event">
+        <h3>{{title}}</h3>
+        <p>{{formatTime start}} - {{formatTime end}} | Raum: {{location}}</p>
+        <div class="progress-container">
+          <div class="progress-bar" style="width: {{progress}}%;">{{progress}}%</div>
+        </div>
+      </div>
+    {{/each}}
+  </script>
+
+  <!-- Handlebars von CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
