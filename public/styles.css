@@ -51,7 +51,7 @@ p {
     font-size: 1rem;
 }
 
-/* Neue Styles für den Bereich der heutigen Events */
+/* Styles für den Bereich der heutigen Events */
 .today-events {
     margin-top: 40px;
 }
@@ -72,4 +72,25 @@ p {
   
 .today-events .event p {
     margin: 0.25rem 0;
+}
+
+/* Neue Styles für den Gruppen-Toggle */
+.group-toggle {
+  margin: 20px 0;
+}
+
+.group-toggle button {
+  padding: 10px 20px;
+  margin: 0 5px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: #fff;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.group-toggle button.active {
+  background: #4caf50;
+  color: white;
 }
