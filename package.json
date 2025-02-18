@@ -1,0 +1,23 @@
+{
+  "name": "blockwoche",
+  "version": "1.0.0",
+  "description": "progress tracking site",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tobneu/Blockwoche.git"
+  },
+  "author": "Tobias Neumann",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tobneu/Blockwoche/issues"
+  },
+  "homepage": "https://github.com/tobneu/Blockwoche#readme",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
