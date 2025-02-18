@@ -1,3 +1,5 @@
+/* Bestehende Blockwoche-Funktionen */
+
 // Setze hier dein Start- und Enddatum ein
 const startDate = new Date('2025-02-17T08:00:00'); // Beispiel: Startdatum
 const endDate   = new Date('2025-02-22T18:00:00');   // Beispiel: Enddatum
@@ -66,7 +68,75 @@ function updateMilestones() {
   }
 }
 
-// Initiale Aktualisierung
+// Initiale Aktualisierung der Blockwoche-Anzeige
 updateProgress();
-// Aktualisiere die Anzeige jede Sekunde
+// Aktualisiere jede Sekunde
 setInterval(updateProgress, 1000);
+
+
+/* Neues Feature: Heutige Lehrveranstaltungen via Handlebars */
+
+// Holt die Events aus dem API-Endpunkt, filtert für heute, berechnet den Fortschritt und rendert sie
+function fetchAndRenderTodayEvents() {
+  fetch('/api/events')
+    .then(response => response.json())
+    .then(events => {
+      // Filtere Events, die heute stattfinden
+      const now = new Date();
+      const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      const tomorrow = new Date(today);
+      tomorrow.setDate(today.getDate() + 1);
+      
+      const todayEvents = events.filter(event => {
+        const eventStart = new Date(event.start);
+        return eventStart >= today && eventStart < tomorrow;
+      });
+
+      // Berechne den Fortschritt für jedes Event
+      todayEvents.forEach(event => {
+        event.progress = calculateEventProgress(event);
+      });
+
+      // Sortiere Events nach Startzeit
+      todayEvents.sort((a, b) => new Date(a.start) - new Date(b.start));
+
+      // Rendere mit Handlebars
+      const source = document.getElementById('events-template').innerHTML;
+      const template = Handlebars.compile(source);
+
+      // Hilfsfunktion zum Formatieren der Zeit
+      Handlebars.registerHelper('formatTime', function(datetime) {
+        const d = new Date(datetime);
+        return d.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+      });
+
+      const context = { events: todayEvents };
+      const html = template(context);
+      document.getElementById('events-container').innerHTML = html;
+    })
+    .catch(error => {
+      console.error('Error fetching events:', error);
+    });
+}
+
+// Hilfsfunktion: Berechnet den Fortschritt eines Events (0 bis 100)
+function calculateEventProgress(event) {
+  const now = new Date();
+  const start = new Date(event.start);
+  const end = new Date(event.end);
+  
+  if (now < start) {
+    return 0;
+  }
+  if (now > end) {
+    return 100;
+  }
+  const total = end - start;
+  const elapsed = now - start;
+  return Math.round((elapsed / total) * 100);
+}
+
+// Initiale Darstellung der heutigen Events
+fetchAndRenderTodayEvents();
+// Aktualisiere die Darstellung jede Minute
+setInterval(fetchAndRenderTodayEvents, 60000);
